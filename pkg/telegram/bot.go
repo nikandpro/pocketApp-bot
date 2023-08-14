@@ -28,7 +28,7 @@ func (b *Bot) Start() error {
 
 func (b *Bot) handleUpdates(updates tgbotapi.UpdatesChannel) {
 	for update := range updates {
-		if update.Message != nil { // If we got a message
+		if update.Message == nil { // If we got a message
 			continue
 		}
 
