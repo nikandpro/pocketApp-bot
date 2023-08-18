@@ -4,14 +4,17 @@ import (
 	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
+	"github.com/zhashkevych/go-pocket-sdk"
 )
 
 type Bot struct {
-	bot *tgbotapi.BotAPI
+	bot          *tgbotapi.BotAPI
+	pocketClient *pocket.Client
+	redirectURL string
 }
 
-func NewBot(bot *tgbotapi.BotAPI) *Bot {
-	return &Bot{bot: bot}
+func NewBot(bot *tgbotapi.BotAPI, pocketClient *pocket.Client, redirectURL string) *Bot {
+	return &Bot{bot: bot, pocketClient: pocketClient, redirectURL: redirectURL}
 }
 
 func (b *Bot) Start() error {
@@ -40,8 +43,6 @@ func (b *Bot) handleUpdates(updates tgbotapi.UpdatesChannel) {
 		b.handleMessage(update.Message)
 	}
 }
-
-
 
 func (b *Bot) initUpdatesChannel() (tgbotapi.UpdatesChannel, error) {
 	u := tgbotapi.NewUpdate(0)
