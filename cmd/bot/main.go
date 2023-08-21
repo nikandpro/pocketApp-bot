@@ -20,7 +20,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("Authorized on account %s", bot.Self.UserName)
 
 	telegramBot := telegram.NewBot(bot, pocketClient, "http://localhost/")
 	if err := telegramBot.Start(); err != nil {
