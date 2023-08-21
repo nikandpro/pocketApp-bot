@@ -1,7 +1,6 @@
 package telegram
 
 import (
-	"fmt"
 	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
@@ -10,6 +9,7 @@ import (
 const (
 	commandStart = "start"
 	startReplyTemplate = "Привет! Чтобы сохранять ссылки в своем Pocket аккаунте, для начала тебе необходимо дать мне на это доступ. Для этого переходи по ссылке: \n%s"
+	replyAlreadyAutorized = "Ты уже авторизирован. Присылай ссылку, а я ее сохраню."
 )
 
 func (b *Bot) handleCommand(message *tgbotapi.Message) error {
@@ -30,13 +30,12 @@ func (b *Bot) handleMessage(message *tgbotapi.Message) {
 }
 
 func (b *Bot) handleStartCommand(message *tgbotapi.Message) error {
-	authLink, err := b.generateAuthorizationLink(message.Chat.ID)
+	_, err := b.getAccessToken(message.Chat.ID)
 	if err != nil {
-		return err
+		return b.initAutorizationProcess(message)
 	}
-	
-	msg := tgbotapi.NewMessage(message.Chat.ID, fmt.Sprintf(startReplyTemplate, authLink))
 
+	msg := tgbotapi.NewMessage(message.Chat.ID, replyAlreadyAutorized)
 	_, err = b.bot.Send(msg)
 	return err
 	
