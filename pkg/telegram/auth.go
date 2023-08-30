@@ -13,7 +13,7 @@ func (b *Bot) initAutorizationProcess(message *tgbotapi.Message) error {
 		return b.initAutorizationProcess(message)
 	}
 
-	msg := tgbotapi.NewMessage(message.Chat.ID, fmt.Sprintf(startReplyTemplate, authLink))
+	msg := tgbotapi.NewMessage(message.Chat.ID, fmt.Sprintf(b.messages.Start, authLink))
 
 	_, err = b.bot.Send(msg)
 	return err
