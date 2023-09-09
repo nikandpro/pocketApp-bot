@@ -5,7 +5,7 @@ bot_url: "https://t.me/pocket_bot_golang_telegram_bot"
 messages:
   responses:
     start: "Привет! Чтобы сохранять ссылки в своем Pocket аккаунте, для начала тебе необходимо дать мне на это доступ. Для этого переходи по ссылке: \n%s"
-	  already_authorized: "Ты уже авторизирован. Присылай ссылку, а я ее сохраню."
+    already_authorized: "Ты уже авторизирован. Присылай ссылку, а я ее сохраню."
     saved_successfully: "Ссылка успешно сохранена!"
     unknown_command: "Я не знаю такой команды"
   errors:

@@ -14,6 +14,7 @@ import (
 )
 
 func main() {
+
 	cfg, err := config.Init()
 	if err != nil {
 		log.Fatal(err)
@@ -39,7 +40,7 @@ func main() {
 	tokenRepository := boltdb.NewTokenRepository(db)
 
 	telegramBot := telegram.NewBot(bot, pocketClient, tokenRepository, cfg.AuthServerURL, cfg.Messages)
-	
+
 	autorizationServer := server.NewAutorizationServer(pocketClient, tokenRepository, cfg.TelegramBotURL)
 
 	go func() {
@@ -50,7 +51,7 @@ func main() {
 
 	if err := autorizationServer.Start(); err != nil {
 		log.Fatal(err)
-	} 
+	}
 
 }
 
